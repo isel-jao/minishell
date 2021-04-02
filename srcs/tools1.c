@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 13:08:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 18:34:37 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:15:05 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void las_cmd(t_ms *ms, char **args)
+void	las_cmd(t_ms *ms, char **args)
 {
 	char *tmp;
 	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
@@ -20,7 +20,7 @@ void las_cmd(t_ms *ms, char **args)
 	ft_free(tmp);
 }
 
-size_t size_env(t_env *lst)
+size_t	size_env(t_env *lst)
 {
 	size_t lst_len;
 
@@ -33,7 +33,7 @@ size_t size_env(t_env *lst)
 	return (lst_len);
 }
 
-char **lst_to_tab(t_env *lst)
+char	**lst_to_tab(t_env *lst)
 {
 	size_t len;
 	char **table;
@@ -53,7 +53,7 @@ char **lst_to_tab(t_env *lst)
 	return (table);
 }
 
-int env_len(char *s)
+int		env_len(char *s)
 {
 	int i;
 
@@ -63,7 +63,7 @@ int env_len(char *s)
 	return (i);
 }
 
-char *env_value(t_env *env, char *key)
+char	*env_value(t_env *env, char *key)
 {
 	t_env *tmp;
 	char *s;
@@ -83,7 +83,7 @@ char *env_value(t_env *env, char *key)
 	return (NULL);
 }
 
-void free_node(t_env *node)
+void	free_node(t_env *node)
 {
 	if (!node)
 		return;
@@ -91,7 +91,7 @@ void free_node(t_env *node)
 	free(node);
 }
 
-void del_node(t_env **env, t_env *node)
+void	del_node(t_env **env, t_env *node)
 {
 	t_env *tmp;
 	t_env *buf;
@@ -118,7 +118,7 @@ void del_node(t_env **env, t_env *node)
 	tmp->next = NULL;
 }
 
-t_env *new_env(char *value)
+t_env	*new_env(char *value)
 {
 	t_env *new;
 
@@ -128,7 +128,7 @@ t_env *new_env(char *value)
 	return (new);
 }
 
-void add_env(t_env *env, char *value)
+void	add_env(t_env *env, char *value)
 {
 	t_env *new;
 
@@ -138,7 +138,7 @@ void add_env(t_env *env, char *value)
 	env->next = new;
 }
 
-void init_env(t_ms *ms, char **env)
+void	init_env(t_ms *ms, char **env)
 {
 	t_sl sl;
 	int i;

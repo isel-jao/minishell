@@ -38,6 +38,9 @@ SRC += type.c
 SRC += unset.c 
 SRC += signals.c 
 SRC += sort_args.c 
+SRC += expansion_tool.c
+SRC += env_tools.c
+SRC += token_tools.c 
 
 
 OBJ			=	$(addprefix $(OBJ_DIR),$(SRC:.c=.o))

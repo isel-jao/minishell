@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:16:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/16 16:57:39 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:19:19 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int is_builtin(char *command)
+int	is_builtin(char *command)
 {
 	if (ft_strcmp(command, "echo") == 0)
 		return (1);
@@ -29,16 +29,13 @@ int is_builtin(char *command)
 	return (0);
 }
 
-
-
-
-int exec_builtin(t_ms *ms, char **args)
+int	exec_builtin(t_ms *ms, char **args)
 {
 	int result;
 
 	result = 0;
 	if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(ms, args);
+		ft_echo(args);
 	if (ft_strcmp(args[0], "cd") == 0)
 		result = ft_cd(ms->env, args);
 	if (ft_strcmp(args[0], "pwd") == 0)

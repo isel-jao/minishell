@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:28:02 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 16:37:02 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:04:25 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int is_last_valid_arg(t_token *token)
+int				is_last_valid_arg(t_token *token)
 {
 	t_token *prev;
 
@@ -27,7 +27,7 @@ int is_last_valid_arg(t_token *token)
 		return (0);
 }
 
-static void set_type(t_token *token)
+static	void	set_type(t_token *token)
 {
 	while (token)
 	{
@@ -35,9 +35,9 @@ static void set_type(t_token *token)
 			type_arg(token, 0);
 		token = token->next;
 	}
-	
 }
-void sort_args(t_ms *ms)
+
+void			sort_args(t_ms *ms)
 {
 	t_token *token;
 	t_token *prev;
@@ -62,5 +62,5 @@ void sort_args(t_ms *ms)
 		}
 		token = token->next;
 	}
-	set_type( ms->token);
+	set_type(ms->token);
 }

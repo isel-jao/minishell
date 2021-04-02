@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:47:58 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 17:50:11 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:48:48 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int is_env_char(int c)
-{
-	if (ft_isalnum(c) == 1 || c == '_')
-		return (TRUE);
-	return (FALSE);
-}
-
-int is_valid_env(const char *env)
+int		is_valid_env(const char *env)
 {
 	int i;
 
@@ -37,7 +30,7 @@ int is_valid_env(const char *env)
 	return (1);
 }
 
-int env_value_len(const char *env)
+int		env_value_len(const char *env)
 {
 	int i;
 	int size_name;
@@ -55,12 +48,12 @@ int env_value_len(const char *env)
 	return (size_name);
 }
 
-char *value_env(char *env)
+char	*value_env(char *env)
 {
-	int i;
-	int j;
-	int size_alloc;
-	char *env_value;
+	int		i;
+	int		j;
+	int		size_alloc;
+	char	*env_value;
 
 	size_alloc = env_value_len(env) + 1;
 	if (!(env_value = malloc(sizeof(char) * size_alloc)))
@@ -75,9 +68,10 @@ char *value_env(char *env)
 	env_value[j] = '\0';
 	return (env_value);
 }
-char *get_env_name(char *dest, const char *src)
+
+char	*get_env_name(char *dest, const char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] && src[i] != '=' && ft_strlen(src) < BUFF_SIZE)
@@ -88,10 +82,11 @@ char *get_env_name(char *dest, const char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-char *get_env_value(char *arg, t_env *env)
+
+char	*get_env_value(char *arg, t_env *env)
 {
-	char env_name[BUFF_SIZE];
-	char *env_val;
+	char	env_name[BUFF_SIZE];
+	char	*env_val;
 
 	env_val = ft_strdup("");
 	while (env && env->value)

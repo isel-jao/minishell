@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:10:32 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/16 14:40:50 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:24:36 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void ft_env(t_env *env)
+void	ft_env(t_env *env)
 {
 	export_env(env, "_=env", 1);
 	while (env)
@@ -23,7 +23,7 @@ void ft_env(t_env *env)
 	}
 }
 
-int lst_len(t_env *env)
+int		lst_len(t_env *env)
 {
 	int i;
 
@@ -33,14 +33,14 @@ int lst_len(t_env *env)
 		i++;
 		env = env->next;
 	}
-	return i;
+	return (i);
 }
 
-char **lst_totab(t_env *env)
+char	**lst_totab(t_env *env)
 {
-	char **table;
-	int len;
-	int i;
+	char	**table;
+	int		len;
+	int		i;
 
 	len = lst_len(env);
 	table = malloc(sizeof(char *) * (len + 1));
@@ -55,12 +55,13 @@ char **lst_totab(t_env *env)
 	return (table);
 }
 
-void sort_tab(char **table)
+void	sort_tab(char **table)
 {
-	int i;
-	char *tmp;
-	int flag = 1;
+	int		i;
+	char	*tmp;
+	int		flag;
 
+	flag = 1;
 	while (flag)
 	{
 		flag = 0;
@@ -79,10 +80,10 @@ void sort_tab(char **table)
 	}
 }
 
-void ft_env_secret(t_env *env)
+void	ft_env_secret(t_env *env)
 {
-	char **table;
-	int i;
+	char	**table;
+	int		i;
 
 	i = 0;
 	table = lst_totab(env);

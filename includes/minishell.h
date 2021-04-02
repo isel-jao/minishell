@@ -157,7 +157,7 @@ int is_builtin(char *command);
 
 
 
-int ft_echo(t_ms *ms, char **args);
+int ft_echo(char **args);
 int ft_cd(t_env *env, char **args);
 int ft_pwd(t_ms *ms, char **args);
 int ft_export(t_env *env, char **args);
@@ -195,6 +195,8 @@ int token_len(char *line, int *i);
 void print_token(t_token *t);
 void ft_env_secret(t_env *env);
 void ft_close(int fd);
+void	ft_closedir(DIR *folder);
+
 void reset_std(t_ms *ms);
 void close_fds(t_ms *ms);
 void reset_fds(t_ms *ms);
@@ -234,6 +236,7 @@ int is_last_valid_arg(t_token *token);
 int update_oldpwd(t_env *env);
 int update_pwd(t_env *env);
 int go_to_path(int option, t_env *env);
+int		check(t_ms *ms, t_token *token);
 
 
 t_sig g_sig;

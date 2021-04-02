@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 17:01:47 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:57:38 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-void ft_prompt(int ret)
+void	ft_prompt(int ret)
 {
 	ft_putnbr_fd(ret, STDERR);
 	ft_putstr_fd(" minshell> ", STDERR);
 }
 
-void redir_and_exec(t_ms *ms, t_token *token)
+void	redir_and_exec(t_ms *ms, t_token *token)
 {
-	t_token *prev;
-	t_token *next;
-	int pipe;
+	t_token	*prev;
+	t_token	*next;
+	int		pipe;
 
 	prev = prev_sep(token, NOSKIP);
 	next = next_sep(token, NOSKIP);
@@ -38,14 +37,15 @@ void redir_and_exec(t_ms *ms, t_token *token)
 		pipe = ft_pipe(ms);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(ms, next->next);
-	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1 && !ms->no_exec)
+	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) &&\
+		pipe != 1 && !ms->no_exec)
 		exec_cmd(ms, token);
 }
 
-void minishell(t_ms *ms)
+void	minishell(t_ms *ms)
 {
-	t_token *token;
-	int buf;
+	t_token	*token;
+	int		buf;
 
 	token = next_run(ms->token, NOSKIP);
 	token = (is_types(ms->token, "TAI")) ? ms->token->next : token;
@@ -68,35 +68,9 @@ void minishell(t_ms *ms)
 	}
 }
 
-
-int check(t_ms *ms, t_token *token)
+void	free_env(t_env *env)
 {
-	while (token)
-	{
-		if (is_types(token, "TAI") && (!token->next || is_types(token->next, "TAIPE")))
-		{
-			ft_putstr_fd(SYNERR, STDERR);
-			token->next ? ft_putstr_fd(token->next->str, STDERR) : ft_putstr_fd("newline", STDERR);
-			ft_putendl_fd("'", STDERR);
-			ms->ret = 258;
-			return (0);
-		}
-		if (is_types(token, "PE") && (!token->prev || !token->next || is_types(token->prev, "TAIPE")))
-		{
-			ft_putstr_fd(SYNERR, STDERR);
-			ft_putstr_fd(token->str, STDERR);
-			ft_putendl_fd("'", STDERR);
-			ms->ret = 258;
-			return (0);
-		}
-		token = token->next;
-	}
-	return (1);
-}
-
-void free_env(t_env *env)
-{
-	t_env *buf;
+	t_env	*buf;
 
 	while (env)
 	{
@@ -107,9 +81,9 @@ void free_env(t_env *env)
 	}
 }
 
-int main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
-	t_ms ms;
+	t_ms	ms;
 
 	(void)ac;
 	(void)av;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:04:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 15:59:52 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:17:37 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int update_oldpwd(t_env *env)
+int	update_oldpwd(t_env *env)
 {
 	char *cwd;
 	char *oldpwd;
@@ -28,10 +28,11 @@ int update_oldpwd(t_env *env)
 	}
 	return (SUCCESS);
 }
-int update_pwd(t_env *env)
+
+int	update_pwd(t_env *env)
 {
-	char cwd[PATH_MAX];
-	char *newpwd;
+	char	cwd[PATH_MAX];
+	char	*newpwd;
 
 	newpwd = NULL;
 	if (getcwd(cwd, PATH_MAX) == NULL)
@@ -43,10 +44,10 @@ int update_pwd(t_env *env)
 	return (SUCCESS);
 }
 
-int go_to_path(int option, t_env *env)
+int	go_to_path(int option, t_env *env)
 {
-	int ret;
-	char *env_path;
+	int		ret;
+	char	*env_path;
 
 	env_path = NULL;
 	if (option == 0)

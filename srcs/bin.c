@@ -3,26 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 12:17:19 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:39:34 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void ft_closedir(DIR *folder)
+int		error_message(char *path)
 {
-	if (folder)
-		closedir(folder);
-}
-
-int error_message(char *path)
-{
-	DIR *folder;
-	int fd;
-	int ret;
+	DIR	*folder;
+	int	fd;
+	int	ret;
 
 	ret = SUCCESS;
 	fd = open(path, O_WRONLY);
@@ -46,10 +40,10 @@ int error_message(char *path)
 	return (ret);
 }
 
-char *path_join(const char *s1, const char *s2)
+char	*path_join(const char *s1, const char *s2)
 {
-	char *tmp;
-	char *path;
+	char	*tmp;
+	char	*path;
 
 	tmp = ft_strjoin(s1, "/");
 	path = ft_strjoin(tmp, s2);
@@ -57,11 +51,11 @@ char *path_join(const char *s1, const char *s2)
 	return (path);
 }
 
-char *check_dir(char *bin, char *command)
+char	*check_dir(char *bin, char *command)
 {
-	DIR *folder;
-	struct dirent *item;
-	char *path;
+	DIR				*folder;
+	struct dirent	*item;
+	char			*path;
 
 	path = NULL;
 	folder = opendir(bin);
@@ -76,16 +70,15 @@ char *check_dir(char *bin, char *command)
 	return (path);
 }
 
-int ft_execve(char *path, char **args,  t_ms *ms)
+int		ft_execve(char *path, char **args, t_ms *ms)
 {
-	char **env_array;
-	int ret;
+	char	**env_array;
+	int		ret;
 
 	ret = SUCCESS;
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		
 		env_array = lst_to_tab(ms->env);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
@@ -96,24 +89,24 @@ int ft_execve(char *path, char **args,  t_ms *ms)
 	else
 		waitpid(g_sig.pid, &ret, 0);
 	if (g_sig.exit_status)
-		return	(g_sig.exit_status);
+		return (g_sig.exit_status);
 	ret = WEXITSTATUS(ret);
 	return (ret);
 }
 
-int exec_bin(char **args, t_env *env, t_ms *ms)
+int		exec_bin(char **args, t_env *env, t_ms *ms)
 {
-	int i;
-	char **bin;
-	char *path;
-	int ret;
+	int		i;
+	char	**bin;
+	char	*path;
+	int		ret;
 
 	i = 0;
 	ret = UNKNOWN_COMMAND;
 	while (env && ft_strncmp(env->value, "PATH=", 5))
 		env = env->next;
 	if (env == NULL)
-		return (ft_execve(args[0], args,  ms));
+		return (ft_execve(args[0], args, ms));
 	bin = ft_split(env->value, ':');
 	if (!args[0] && !bin[0])
 		return (ERROR);
@@ -122,9 +115,9 @@ int exec_bin(char **args, t_env *env, t_ms *ms)
 	while (args[0] && bin[i] && path == NULL)
 		path = check_dir(bin[i++], args[0]);
 	if (path != NULL)
-		ret = ft_execve(path, args,  ms);
+		ret = ft_execve(path, args, ms);
 	else
-		ret = ft_execve(args[0], args,  ms);
+		ret = ft_execve(args[0], args, ms);
 	free_tab((void **)bin);
 	ft_free(path);
 	return (ret);

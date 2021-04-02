@@ -3,24 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 16:28:05 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:00:12 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int		check(t_ms *ms, t_token *token)
+{
+	while (token)
+	{
+		if (is_types(token, "TAI") && (!token->next ||\
+		is_types(token->next, "TAIPE")))
+		{
+			ft_putstr_fd(SYNERR, STDERR);
+			token->next ? ft_putstr_fd(token->next->str, STDERR) :\
+			ft_putstr_fd("newline", STDERR);
+			ft_putendl_fd("'", STDERR);
+			ms->ret = 258;
+			return (0);
+		}
+		if (is_types(token, "PE") && (!token->prev || !token->next ||\
+			is_types(token->prev, "TAIPE")))
+		{
+			ft_putstr_fd(SYNERR, STDERR);
+			ft_putstr_fd(token->str, STDERR);
+			ft_putendl_fd("'", STDERR);
+			ms->ret = 258;
+			return (0);
+		}
+		token = token->next;
+	}
+	return (1);
+}
+
 /*
 ** allocat mem for the added space new line
 */
 
-char *space_alloc(char *line)
+char	*space_alloc(char *line)
 {
-	char *new;
-	int count;
-	int i;
+	char	*new;
+	int		count;
+	int		i;
 
 	count = 0;
 	i = 0;
@@ -39,18 +67,19 @@ char *space_alloc(char *line)
 ** add spaces arround separators and mark expantions positions
 */
 
-char *sep_space(char *line)
+char	*sep_space(char *line)
 {
-	char *new;
-	int i;
-	int j;
+	char	*new;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	new = space_alloc(line);
-	while (new &&line[i])
+	while (new && line[i])
 	{
-		if (quotes(line, i) != QOUTE && line[i] == '$' && i && line[i - 1] != '\\')
+		if (quotes(line, i) != QOUTE && line[i] == '$' && \
+		i && line[i - 1] != '\\')
 		{
 			new[j++] = EXPANSION;
 			i++;
@@ -70,11 +99,15 @@ char *sep_space(char *line)
 	return (new);
 }
 
-void prompt(t_ms *ms)
+void	prompt(t_ms *ms)
 {
-	int ret = ms->ret;
-	int i = 0;
-	int a = 100;
+	int ret;
+	int i;
+	int a;
+
+	i = 0;
+	ret = ms->ret;
+	a = 100;
 	while (a)
 	{
 		ms->prompt[i++] = ret / a + 48;
@@ -84,25 +117,25 @@ void prompt(t_ms *ms)
 	ft_memcpy(&ms->prompt[i], " minishell > ", 14);
 }
 
-void parse(t_ms *ms)
+void	parse(t_ms *ms)
 {
 	char *line;
 
 	line = NULL;
 	prompt(ms);
 	if (!(ms->line = ft_readline(ms->prompt, ms->hist, &ms->exit, &ms->ret)))
-		return;
+		return ;
 	ft_putchar('\n');
 	appand_history(ms->line, ms->h_fd);
 	if (!ft_strcmp(ms->line, "history"))
 	{
 		print_history(ms->hist);
-		return;
+		return ;
 	}
 	if (ms->line && ms->line[0])
 		ft_lstadd_back(&ms->hist, ft_lstnew(ms->line));
 	if (quote_check(ms, ms->line))
-		return;
+		return ;
 	ms->line = sep_space(ms->line);
 	if (ms->line && ms->line[0] == '$')
 		ms->line[0] = EXPANSION;

@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:26:40 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 17:27:04 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:01:48 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** check if there is an open quote before the givin index 
-*/
-
-int quotes(char *line, int index)
+int	quotes(char *line, int index)
 {
 	int i;
 	int open;
@@ -40,10 +36,7 @@ int quotes(char *line, int index)
 	return (open);
 }
 
-/*
-** check open quotes error
-*/
-int quote_check(t_ms *ms, char *line)
+int	quote_check(t_ms *ms, char *line)
 {
 	if (quotes(line, 2147483647))
 	{

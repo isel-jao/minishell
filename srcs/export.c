@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:20:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 16:32:41 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:46:43 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-
-void export_env(t_env *env, char *key, int len)
+void		export_env(t_env *env, char *key, int len)
 {
 	t_env *tmp;
-	
+
 	tmp = env;
 	while (tmp && ft_strncmp(tmp->value, key, len))
 		tmp = tmp->next;
@@ -30,7 +28,7 @@ void export_env(t_env *env, char *key, int len)
 		add_env(env, key);
 }
 
-static int print_error(char *s)
+static	int	print_error(char *s)
 {
 	ft_putstr_fd("bash: export: `", STDERR);
 	ft_putstr_fd(s, STDERR);
@@ -38,7 +36,7 @@ static int print_error(char *s)
 	return (1);
 }
 
-static int is_valid(const char *s)
+static	int	is_valid(const char *s)
 {
 	int i;
 
@@ -56,11 +54,13 @@ static int is_valid(const char *s)
 	return (0);
 }
 
-int ft_export(t_env *env, char **args)
+int			ft_export(t_env *env, char **args)
 {
-	int i;
-	int k;
-	int ret;
+	int		i;
+	int		k;
+	int		ret;
+	char	*tmp;
+
 	ret = 0;
 	i = 1;
 	while (args[i])
@@ -74,8 +74,7 @@ int ft_export(t_env *env, char **args)
 	}
 	if (i == 1)
 		ft_env_secret(env);
-	char *tmp;
-	tmp = ft_strjoin("_=", args[tab_len((void **)args)  - 1]);
+	tmp = ft_strjoin("_=", args[tab_len((void **)args) - 1]);
 	export_env(env, tmp, 1);
 	ft_free(tmp);
 	return (ret);

@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:22:11 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/02 14:27:26 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:03:20 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-**  handle >> & > redirectoins
-*/
-
-void redir(t_ms *ms, t_token *token, int type)
+void	redir(t_ms *ms, t_token *token, int type)
 {
 	ft_close(ms->fdout);
 	if (type == TRUNC)
@@ -30,53 +26,44 @@ void redir(t_ms *ms, t_token *token, int type)
 		ft_putendl_fd(": Permission denied", STDERR);
 		ms->ret = 1;
 		ms->no_exec = 1;
-		return;
+		return ;
 	}
 	dup2(ms->fdout, STDOUT);
 }
 
-/*
-** handle < redirections 
-*/
-
-void input(t_ms *ms, t_token *token)
+void	input(t_ms *ms, t_token *token)
 {
-	int exist;
-	struct stat buffer;
+	int				exist;
+	struct stat		buffer;
 
 	exist = stat(token->str, &buffer);
-	// printf("exist %d\n", exist);
-	if (exist )
+	if (exist)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);
 		ft_putendl_fd(": No such file or directory", STDERR);
 		ms->ret = 1;
 		ms->no_exec = 1;
-		return;
+		return ;
 	}
 	ft_close(ms->fdin);
 	ms->fdin = open(token->str, O_RDONLY, S_IRWXU);
-	if (ms->fdin == -1 )
+	if (ms->fdin == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->str, STDERR);
 		ft_putendl_fd(": Permission denied", STDERR);
 		ms->ret = 1;
 		ms->no_exec = 1;
-		return;
+		return ;
 	}
 	dup2(ms->fdin, STDIN);
 }
 
-/*
-** handle piping cmds 
-*/
-
-int ft_pipe(t_ms *ms)
+int		ft_pipe(t_ms *ms)
 {
-	pid_t pid;
-	int pipefd[2];
+	pid_t	pid;
+	int		pipefd[2];
 
 	pipe(pipefd);
 	pid = fork();

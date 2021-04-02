@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 16:29:48 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:26:12 by yqodsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char **cmd_tab(t_token *start)
+char	**cmd_tab(t_token *start)
 {
-	t_token *token;
-	char **table;
-	int i;
+	t_token		*token;
+	char		**table;
+	int			i;
 
 	if (!start)
 		return (NULL);
@@ -40,12 +40,13 @@ char **cmd_tab(t_token *start)
 	table[i] = NULL;
 	return (table);
 }
-void get_expantion(t_ms *ms, char **cmd)
+
+void	get_expantion(t_ms *ms, char **cmd)
 {
-	char *exp;
-	int i;
-	int j;
-	
+	char	*exp;
+	int		i;
+	int		j;
+
 	i = 0;
 	j = 0;
 	while (cmd && cmd[j])
@@ -59,13 +60,14 @@ void get_expantion(t_ms *ms, char **cmd)
 	}
 	cmd[i] = NULL;
 }
-void exec_cmd(t_ms *ms, t_token *token)
+
+void	exec_cmd(t_ms *ms, t_token *token)
 {
 	char **cmd;
 
 	cmd = NULL;
 	if (ms->charge == 0)
-		return;
+		return ;
 	cmd = cmd_tab(token);
 	get_expantion(ms, cmd);
 	if (cmd && !cmd[0])
