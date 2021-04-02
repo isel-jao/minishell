@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 18:42:59 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:29:48 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void exec_cmd(t_ms *ms, t_token *token)
 {
 	char **cmd;
 
+	cmd = NULL;
 	if (ms->charge == 0)
 		return;
 	cmd = cmd_tab(token);
@@ -73,11 +74,11 @@ void exec_cmd(t_ms *ms, t_token *token)
 		ms_exit(ms, cmd);
 	else if (cmd && is_builtin(cmd[0]))
 		ms->ret = exec_builtin(ms, cmd);
-	else if (cmd)
+	else if (cmd && ft_strcmp(cmd[0], "exit"))
 		ms->ret = exec_bin(cmd, ms->env, ms);
 	las_cmd(ms, cmd);
-
 	free_tab((void **)cmd);
+	cmd = NULL;
 	ft_close(ms->pipin);
 	ft_close(ms->pipout);
 	ms->charge = 0;

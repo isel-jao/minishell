@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   term_mode.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 01:48:14 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/15 19:41:44 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:28:23 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-void raw_term_mode(void)
+void	raw_term_mode(void)
 {
-	struct termios tattr;
+	struct termios	tattr;
 
 	tcgetattr(STDIN_FILENO, &tattr);
 	tattr.c_lflag &= ~(ICANON | ECHO);
@@ -25,9 +25,9 @@ void raw_term_mode(void)
 	tgetent(NULL, getenv("TERM"));
 }
 
-void default_term_mode(void)
+void	default_term_mode(void)
 {
-	struct termios tattr;
+	struct termios	tattr;
 
 	tcgetattr(STDIN_FILENO, &tattr);
 	tattr.c_lflag |= (ECHO | ICANON);

@@ -6,13 +6,11 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 17:29:20 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:28:05 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 /*
 ** allocat mem for the added space new line
@@ -72,7 +70,6 @@ char *sep_space(char *line)
 	return (new);
 }
 
-
 void prompt(t_ms *ms)
 {
 	int ret = ms->ret;
@@ -93,7 +90,7 @@ void parse(t_ms *ms)
 
 	line = NULL;
 	prompt(ms);
-	if (!(ms->line = ft_readline(ms->prompt, ms->hist, &ms->exit, &ms->ret)) )
+	if (!(ms->line = ft_readline(ms->prompt, ms->hist, &ms->exit, &ms->ret)))
 		return;
 	ft_putchar('\n');
 	appand_history(ms->line, ms->h_fd);
@@ -103,7 +100,7 @@ void parse(t_ms *ms)
 		return;
 	}
 	if (ms->line && ms->line[0])
-			ft_lstadd_back(&ms->hist, ft_lstnew(ms->line));
+		ft_lstadd_back(&ms->hist, ft_lstnew(ms->line));
 	if (quote_check(ms, ms->line))
 		return;
 	ms->line = sep_space(ms->line);

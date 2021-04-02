@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:04:35 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 13:06:48 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:17:06 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int		get_key(void)
 {
-	unsigned int key_pressed = 0;
+	unsigned int	key_pressed;
 
+	key_pressed = 0;
 	read(0, ((void *)(&key_pressed)), MAX_KEY_LEN);
 	return (key_pressed);
 }
@@ -29,6 +30,7 @@ void	ctrl_l(t_line *line)
 	ft_putstr_fd(line->cmd, 0);
 	set_curpos(line);
 }
+
 void	ctrl_u(t_line *line)
 {
 	cursor_to_home(line);
@@ -54,14 +56,8 @@ void	match_move(int key_pressed, t_line *line)
 
 void	match_hist(int key_pressed, t_line *line)
 {
-	int i;
-	static struct s_keyhist keyhist[2] = {
-		{KEYCODE_U, &old_hist_entry},
-		{KEYCODE_D, &new_hist_entry},
-	};
-
-	i = 0;
-	while (i < 2)
-		if (key_pressed == keyhist[i++].key)
-			keyhist[i - 1].p(line, &(line->hist));
+	if (key_pressed == KEYCODE_U)
+		old_hist_entry(line, &line->hist);
+	else if (key_pressed == KEYCODE_D)
+		new_hist_entry(line, &line->hist);
 }

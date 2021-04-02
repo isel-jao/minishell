@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 17:11:50 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 13:03:39 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:48:35 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@ t_list	*retrieve_history(int *h_fd)
 		return (NULL);
 	while (get_next_line(*h_fd, &line) > 0)
 		ft_lstadd_back(&hist, ft_lstnew(line));
+	if (line[0])
+		ft_lstadd_back(&hist, ft_lstnew(line));
+	else
+		free(line);
 	return (hist);
 }

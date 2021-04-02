@@ -6,26 +6,26 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:45:13 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 12:34:18 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:36:36 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-void fatal(char *error)
+void	fatal(char *error)
 {
 	ft_putstr(error);
 	exit(0);
 }
 
-void init_terminal_data()
+void	init_terminal_data(void)
 {
-	char *term_buffer;
-	char *termtype;
+	char	*term_buffer;
+	char	*termtype;
+	int		success;
 
 	term_buffer = NULL;
 	termtype = getenv("TERM");
-	int success;
 	if (termtype == 0)
 		fatal("Specify a terminal type with `setenv TERM <yourtype>'.\n");
 	success = tgetent(term_buffer, termtype);
@@ -35,15 +35,13 @@ void init_terminal_data()
 		fatal("Terminal type `%s' is not defined.\n");
 }
 
-void setup_terminal(struct termios *oldattr)
+void	setup_terminal(struct termios *oldattr)
 {
-	struct termios newattr;
+	struct termios	newattr;
 
 	tcgetattr(STDIN_FILENO, oldattr);
 	newattr = *oldattr;
-	newattr.c_lflag &= ~( ISIG | ICANON | ECHO);
-	// newattr.c_lflag &= ~(ICANON | ECHO | ISIG);
-	// newattr.c_oflag &= ~(OPOST);
+	newattr.c_lflag &= ~(ISIG | ICANON | ECHO);
 	init_terminal_data();
 	tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
 }
