@@ -3,7 +3,7 @@ NAME = minishell
 CC = gcc
 
 # CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
-CFLAGS = -I includes/ -I libft/includes/ -I ft_readline/includes/
+CFLAGS = -Wall -Wextra -Werror  -I includes/ -I libft/includes/ -I ft_readline/includes/
 
 HEADER = minishell.h
 

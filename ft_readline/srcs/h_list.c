@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   h_list.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 17:09:52 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/15 19:41:44 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:02:22 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-int ft_lstsize(t_list *tail)
+int		ft_lstsize(t_list *tail)
 {
 	int i;
 
@@ -24,7 +24,7 @@ int ft_lstsize(t_list *tail)
 	return (i);
 }
 
-t_list *ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content)
 {
 	t_list *new;
 
@@ -34,7 +34,8 @@ t_list *ft_lstnew(void *content)
 	new->content = content;
 	return (new);
 }
-t_list *ft_lstadd_back(t_list **list, t_list *new)
+
+t_list	*ft_lstadd_back(t_list **list, t_list *new)
 {
 	if (!new)
 		return (NULL);
@@ -51,11 +52,12 @@ t_list *ft_lstadd_back(t_list **list, t_list *new)
 	return (*list);
 }
 
-void ft_lstremovenode(t_list **hist)
+void	ft_lstremovenode(t_list **hist)
 {
 	t_list *tmp;
+
 	if (!hist)
-		return;
+		return ;
 	ft_free((*hist)->content);
 	tmp = *hist;
 	*hist = (*hist)->prev;

@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 17:23:34 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:22:37 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void ft_prompt(int ret)
 {
-	int i;
 	ft_putnbr_fd(ret, STDERR);
 	ft_putstr_fd(" minshell> ", STDERR);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:49:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 13:00:11 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:33:40 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char *ft_readline(char *prompt, t_list *hist, int *ms_exit, int *ms_ret);
 
 // terminal setup
 
-void fatal(char *error, char *termtype);
+void fatal(char *error);
 void init_terminal_data();
 void setup_terminal(struct termios *oldattr);
 
@@ -136,7 +136,7 @@ int ft_lstsize(t_list *tail);
 void appand_history(char *line, int h_fd);
 void ft_lstremovenode(t_list **hist);
 void print_history(t_list *hist);
-static void feed_line(t_line *line, char *entry);
+// static void feed_line(t_line *line, char *entry);
 void new_hist_entry(t_line *line, t_list **hist);
 void old_hist_entry(t_line *line, t_list **hist);
 

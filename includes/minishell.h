@@ -148,16 +148,12 @@ typedef struct s_ms
 } t_ms;
 
 
-/*
-** EXEC
-*/
+
 int exec_bin(char **args, t_env *env, t_ms *ms);
 int exec_builtin(t_ms *ms, char **args);
 int is_builtin(char *command);
 
-/*
-** BUILTINS
-*/
+
 
 int ft_echo(t_ms *ms, char **args);
 int ft_cd(t_env *env, char **args);
@@ -169,9 +165,6 @@ void ft_env(t_env *env);
 void ms_exit(t_ms *ms, char **cmd);
 int ft_unset(t_ms *ms, char **args);
 
-/*
-** env
-*/
 
 t_env *new_env(char *value);
 void add_env(t_env *env, char *value);
@@ -184,9 +177,6 @@ char *env_to_str(t_env *lst);
 size_t size_env(t_env *lst);
 char **lst_to_tab(t_env *lst);
 
-/*
-** parsnig
-*/
 void export_env(t_env *env, char *key, int len);
 void parse(t_ms *ms);
 int is_sep(char *line, int i);
@@ -217,7 +207,6 @@ void redir(t_ms *ms, t_token *token, int type);
 void input(t_ms *ms, t_token *token);
 int ft_pipe(t_ms *ms);
 
-// void free_tab(char **args);
 void exec_cmd(t_ms *ms, t_token *token);
 char *expansions(char *arg, t_env *env, int ret);
 void free_token(t_ms *ms);
@@ -225,8 +214,6 @@ int ret_size(int ret);
 int get_var_len(const char *arg, int pos, t_env *env, int ret);
 int arg_alloc_len(const char *arg, t_env *env, int ret);
 char *get_var_value(const char *arg, int pos, t_env *env, int ret);
-static int varlcpy(char *new_arg, const char *env_value, int pos);
-static void insert_var(t_expansions *ex, char *arg, t_env *env, int ret);
 char *expansions(char *arg, t_env *env, int ret);
 int is_env_char(int c);
 int is_valid_env(const char *env);

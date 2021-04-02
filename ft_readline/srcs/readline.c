@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:48:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/18 11:06:51 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:30:21 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int ft_getwinsz(t_winsz *winsz)
 {
-  struct winsize w;
-
   winsz->col = tgetnum("co");
   winsz->row = tgetnum("li");
   ;
@@ -38,23 +36,13 @@ void get_cursor_start_pos(t_line *line)
   line->start.col = ft_atoi(answer + i + 1);
 }
 
-void input_loop(char *prompt, t_line *line, int *ms_exit, int *ms_ret)
+void input_loop(t_line *line, int *ms_ret)
 {
   int key_pressed;
 
   while (42)
   {
-    // key_pressed = 0;
     key_pressed = get_key();
-    // ft_putnbr_fd(key_pressed, 0);
-    // sleep(1);
-    // printf("%x ", key_pressed);
-    // sleep(1);
-    // if (g_sig.exit_status == 1)
-    // {
-    //   line->cmd[0] = 0;
-    //   exit(0);
-    // }
     ft_getwinsz(&line->winsz);
     if (line->start.row + line->cursor / line->winsz.col > line->winsz.row)
       line->start.row--;
@@ -103,7 +91,7 @@ char *ft_readline(char *prompt, t_list *hist, int *ms_exit, int *ms_ret)
   line.hist_size = ft_lstsize(line.hist);
   setup_terminal(&oldattr);
   get_cursor_start_pos(&line);
-  input_loop(prompt, &line, ms_exit, ms_ret);
+  input_loop( &line, ms_ret);
   rest_tail(line);
   // reset terminal attribute
   tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);

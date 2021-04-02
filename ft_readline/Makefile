@@ -1,7 +1,7 @@
 NAME = readline
 
 CC = gcc
-CFLAGS =  -I includes/ -I ../libft/includes/ 
+CFLAGS =  -Wall -Wextra -Werror -I includes/ -I ../libft/includes/ 
 # CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
 
 AR      = ar rcs

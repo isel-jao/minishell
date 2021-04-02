@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 15:51:28 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:21:25 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int ft_sub_cd(t_env *env, char **args)
 }
 int ft_cd(t_env *env, char **args)
 {
-	char *tmp;
 	char buf[PATH_MAX];
 	char *cwd;
 

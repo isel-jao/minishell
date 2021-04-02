@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 22:17:32 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/16 17:45:43 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:23:51 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void sig_int(int code)
 
 void sig_quit(int code)
 {
+    (void)code;
     ft_putstr_fd("Quit: 3\n", STDERR);
     g_sig.exit_status = 131;
 }

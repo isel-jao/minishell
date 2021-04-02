@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:53:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 18:44:10 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:17:19 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char *check_dir(char *bin, char *command)
 	return (path);
 }
 
-int ft_execve(char *path, char **args, t_env *env, t_ms *ms)
+int ft_execve(char *path, char **args,  t_ms *ms)
 {
 	char **env_array;
 	int ret;
@@ -113,7 +113,7 @@ int exec_bin(char **args, t_env *env, t_ms *ms)
 	while (env && ft_strncmp(env->value, "PATH=", 5))
 		env = env->next;
 	if (env == NULL)
-		return (ft_execve(args[0], args, env, ms));
+		return (ft_execve(args[0], args,  ms));
 	bin = ft_split(env->value, ':');
 	if (!args[0] && !bin[0])
 		return (ERROR);
@@ -122,9 +122,9 @@ int exec_bin(char **args, t_env *env, t_ms *ms)
 	while (args[0] && bin[i] && path == NULL)
 		path = check_dir(bin[i++], args[0]);
 	if (path != NULL)
-		ret = ft_execve(path, args, env, ms);
+		ret = ft_execve(path, args,  ms);
 	else
-		ret = ft_execve(args[0], args, env, ms);
+		ret = ft_execve(args[0], args,  ms);
 	free_tab((void **)bin);
 	ft_free(path);
 	return (ret);

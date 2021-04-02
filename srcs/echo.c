@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:31 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/17 14:38:34 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:22:19 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int ft_echo(t_ms *ms, char **args)
 	int n_option;
 	int s_option;
 
+	(void)ms;
 	i = 1;
 	n_option = 0;
 	s_option = 0;
