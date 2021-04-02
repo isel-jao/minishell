@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:29:45 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 15:31:00 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 17:01:47 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,14 @@ void minishell(t_ms *ms)
 	}
 }
 
+
 int check(t_ms *ms, t_token *token)
 {
 	while (token)
 	{
 		if (is_types(token, "TAI") && (!token->next || is_types(token->next, "TAIPE")))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
+			ft_putstr_fd(SYNERR, STDERR);
 			token->next ? ft_putstr_fd(token->next->str, STDERR) : ft_putstr_fd("newline", STDERR);
 			ft_putendl_fd("'", STDERR);
 			ms->ret = 258;
@@ -82,15 +83,7 @@ int check(t_ms *ms, t_token *token)
 		}
 		if (is_types(token, "PE") && (!token->prev || !token->next || is_types(token->prev, "TAIPE")))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
-			ft_putstr_fd(token->str, STDERR);
-			ft_putendl_fd("'", STDERR);
-			ms->ret = 258;
-			return (0);
-		}
-		if (is_types(token, "PE") && (!token->prev || is_types(token->prev, "TAIPE")))
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR);
+			ft_putstr_fd(SYNERR, STDERR);
 			ft_putstr_fd(token->str, STDERR);
 			ft_putendl_fd("'", STDERR);
 			ms->ret = 258;

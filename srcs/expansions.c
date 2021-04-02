@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-jao  <isel-jao@student.42.f>          +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:30:55 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/03/01 18:11:17 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:43:51 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,15 @@ static void insert_var(t_expansions *ex, char *arg, t_env *env, int ret)
 	}
 }
 
+static char *sub_expansions(char *arg, t_expansions ex)
+{
+	if (ex.new_arg[0] == 0 && !ft_strchr(arg, '\"'))
+	{
+		ft_free(ex.new_arg);
+		return NULL;
+	}
+	return (ex.new_arg);
+}
 char *expansions(char *arg, t_env *env, int ret)
 {
 	t_expansions ex;
@@ -156,10 +165,5 @@ char *expansions(char *arg, t_env *env, int ret)
 		ex.j++;
 	}
 	ex.new_arg[ex.i] = '\0';
-	if (ex.new_arg[0] == 0 && !ft_strchr(arg, '\"'))
-	{
-		ft_free(ex.new_arg);
-		return NULL;
-	}
-	return (ex.new_arg);
+	return (sub_expansions(arg, ex));
 }

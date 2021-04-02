@@ -6,12 +6,12 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:20:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/01 16:14:28 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:32:41 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-void ft_env_secret(t_env *env);
+
 
 
 void export_env(t_env *env, char *key, int len)

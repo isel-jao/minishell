@@ -29,6 +29,8 @@
 #define SKIP 1
 #define NOSKIP 0
 
+#define SYNERR "minishell: syntax error near unexpected token `"
+
 /*
 ** standar input putput error 
 */
@@ -191,6 +193,7 @@ t_token *next_token(char *line, int *i);
 void type_arg(t_token *token, int separator);
 int token_len(char *line, int *i);
 void print_token(t_token *t);
+void ft_env_secret(t_env *env);
 void ft_close(int fd);
 void reset_std(t_ms *ms);
 void close_fds(t_ms *ms);
