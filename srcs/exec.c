@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:26:44 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 18:26:12 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 13:01:42 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,5 @@ void	exec_cmd(t_ms *ms, t_token *token)
 	las_cmd(ms, cmd);
 	free_tab((void **)cmd);
 	cmd = NULL;
-	ft_close(ms->pipin);
-	ft_close(ms->pipout);
 	ms->charge = 0;
 }

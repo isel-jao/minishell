@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:22:11 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 19:03:20 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 12:58:32 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		ft_pipe(t_ms *ms)
 	pid_t	pid;
 	int		pipefd[2];
 
+	ms->no_exec = 0;
 	pipe(pipefd);
 	pid = fork();
 	if (pid == 0)
