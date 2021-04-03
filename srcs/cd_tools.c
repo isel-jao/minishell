@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:04:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 18:17:37 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 10:13:01 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	update_oldpwd(t_env *env)
+int			update_oldpwd(t_env *env)
 {
 	char *cwd;
 	char *oldpwd;
@@ -29,7 +29,7 @@ int	update_oldpwd(t_env *env)
 	return (SUCCESS);
 }
 
-int	update_pwd(t_env *env)
+int			update_pwd(t_env *env)
 {
 	char	cwd[PATH_MAX];
 	char	*newpwd;
@@ -44,7 +44,16 @@ int	update_pwd(t_env *env)
 	return (SUCCESS);
 }
 
-int	go_to_path(int option, t_env *env)
+static int	ft_error(int option)
+{
+	if (option == 0)
+		ft_putendl_fd("minishell : cd: HOME not set", STDERR);
+	else if (option == 1)
+		ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
+	return (ERROR);
+}
+
+int			go_to_path(int option, t_env *env)
 {
 	int		ret;
 	char	*env_path;
@@ -54,19 +63,13 @@ int	go_to_path(int option, t_env *env)
 	{
 		env_path = env_value(env, "HOME");
 		if (!env_path)
-		{
-			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
-			return (ERROR);
-		}
+			return (ft_error(option));
 	}
 	else if (option == 1)
 	{
 		env_path = env_value(env, "OLDPWD");
 		if (!env_path)
-		{
-			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
-			return (ERROR);
-		}
+			return (ft_error(option));
 		ft_putendl(env_path);
 	}
 	ret = chdir(env_path);

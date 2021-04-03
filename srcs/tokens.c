@@ -3,67 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:27:53 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 19:14:04 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 10:52:58 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_skip_space(const char *str, int *i)
+void			ft_skip_space(const char *str, int *i)
 {
 	while ((str[*i] == ' ' || str[*i] == '\t') || (str[*i] == '\r' || \
 	str[*i] == '\v' || str[*i] == '\f'))
 		(*i)++;
 }
 
-int		token_len(char *line, int *i)
+static void		sub_next_token(t_token *token, char *line, int *i, char c)
 {
-	int		count;
 	int		j;
-	char	c;
-
-	count = 0;
-	j = 0;
-	c = ' ';
-	while (line[*i + j] && (line[*i + j] != ' ' || c != ' '))
-	{
-		if (c == ' ' && (line[*i + j] == '\'' || line[*i + j] == '\"'))
-			c = line[*i + j++];
-		else if (c != ' ' && line[*i + j] == c)
-		{
-			count += 2;
-			c = ' ';
-			j++;
-		}
-		else
-			j++;
-		if (line[*i + j - 1] == '\\')
-			count--;
-	}
-	return (j - count + 1);
-}
-
-t_token	*next_token(char *line, int *i)
-{
-	t_token	*token;
-	int		j;
-	char	c;
 
 	j = 0;
-	c = ' ';
-	if (!(token = malloc(sizeof(t_token))) || \
-	!(token->str = malloc(sizeof(char) * token_len(line, i))))
-		return (NULL);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
-		if (c == ' ' && line[*i] == '\"')
-		{
-			c = line[*i];
+		if (c == ' ' && line[*i] == '\"' && (c = line[*i]))
 			token->str[j++] = line[(*i)++];
-		}
 		else if (c == ' ' && line[*i] == '\'')
 			c = line[(*i)++];
 		else if (c != ' ' && line[*i] == c)
@@ -79,12 +43,24 @@ t_token	*next_token(char *line, int *i)
 			token->str[j++] = line[(*i)++];
 	}
 	token->str[j] = '\0';
+}
+
+t_token			*next_token(char *line, int *i)
+{
+	int		j;
+	t_token	*token;
+	char	c;
+
+	j = 0;
+	c = ' ';
+	if (!(token = malloc(sizeof(t_token))) || \
+	!(token->str = malloc(sizeof(char) * token_len(line, i))))
+		return (NULL);
+	sub_next_token(token, line, i, c);
 	return (token);
 }
 
-
-
-void	type_arg(t_token *token, int separator)
+void			type_arg(t_token *token, int separator)
 {
 	if (ft_strcmp(token->str, "") == 0)
 		token->type = EMPTY;
@@ -104,7 +80,7 @@ void	type_arg(t_token *token, int separator)
 		token->type = ARG;
 }
 
-t_token	*get_tokens(char *line)
+t_token			*get_tokens(char *line)
 {
 	t_token	*prev;
 	t_token	*next;

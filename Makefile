@@ -34,6 +34,7 @@ SRC += redir.c
 SRC += token.c 
 SRC += tokens.c 
 SRC += tools1.c 
+SRC += tools2.c 
 SRC += type.c 
 SRC += unset.c 
 SRC += signals.c 
@@ -85,4 +86,6 @@ test: all
 	./minishell
 
 norm:
-	norminette $(SRC) includes/$(HEADER)
+	@norminette */*.c
+	@$(MAKE) norm -C libft --no-print-directory
+	@$(MAKE) norm -C ft_readline --no-print-directory

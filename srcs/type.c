@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 01:19:09 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/02/19 22:08:13 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 10:17:36 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int is_type(t_token *token, int type)
+int				is_type(t_token *token, int type)
 {
 	if (token && token->type == type)
 		return (1);
@@ -20,7 +20,7 @@ int is_type(t_token *token, int type)
 		return (0);
 }
 
-int is_types(t_token *token, char *types)
+int				is_types(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && is_type(token, EMPTY))
 		return (1);
@@ -41,7 +41,7 @@ int is_types(t_token *token, char *types)
 	return (0);
 }
 
-int has_type(t_token *token, int type)
+int				has_type(t_token *token, int type)
 {
 	while (token)
 	{
@@ -52,7 +52,7 @@ int has_type(t_token *token, int type)
 	return (0);
 }
 
-int has_pipe(t_token *token)
+int				has_pipe(t_token *token)
 {
 	while (token && is_type(token, END) == 0)
 	{
@@ -63,7 +63,7 @@ int has_pipe(t_token *token)
 	return (0);
 }
 
-t_token *next_type(t_token *token, int type, int skip)
+t_token			*next_type(t_token *token, int type, int skip)
 {
 	if (token && skip)
 		token = token->next;

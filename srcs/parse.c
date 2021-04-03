@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 19:00:12 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/03 10:15:53 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ int		check(t_ms *ms, t_token *token)
 	return (1);
 }
 
-/*
-** allocat mem for the added space new line
-*/
-
 char	*space_alloc(char *line)
 {
 	char	*new;
@@ -63,10 +59,6 @@ char	*space_alloc(char *line)
 	return (new);
 }
 
-/*
-** add spaces arround separators and mark expantions positions
-*/
-
 char	*sep_space(char *line)
 {
 	char	*new;
@@ -79,11 +71,8 @@ char	*sep_space(char *line)
 	while (new && line[i])
 	{
 		if (quotes(line, i) != QOUTE && line[i] == '$' && \
-		i && line[i - 1] != '\\')
-		{
-			new[j++] = EXPANSION;
+		i && line[i - 1] != '\\' && (new[j++] = EXPANSION))
 			i++;
-		}
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
 			new[j++] = ' ';

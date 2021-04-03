@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:30:05 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 14:05:57 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/03 10:44:38 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_tab(void **tab)
 	i = 0;
 	if (!tab)
 		return ;
-
 	while (tab[i])
 		ft_free(tab[i++]);
 	free(tab);

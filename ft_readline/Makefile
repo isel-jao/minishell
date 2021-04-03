@@ -35,7 +35,7 @@ all:
 
 
 $(NAME): $(OBJS)
-	@make -C ../libft/ --no-print-directory
+	# @make -C ../libft/ --no-print-directory
 	$(AR) $(NAME) $? 
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INC_DIR)*.h
@@ -43,15 +43,11 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INC_DIR)*.h
 
 
 clean:
-	@echo "\033[0;31mCleaning libft..."
-	@make clean -C ../libft/
-	@echo "\nRemoving binaries..."
+	@echo "\nDeleting objects..."
 	@rm -rf /objs
 	@echo "\033[0m"
 
 fclean:
-	@echo "\033[0;31mCleaning libft..."
-	@make fclean -C ../libft/
 	@echo "\nDeleting objects..."
 	@rm -rf $(OBJ_DIR)
 	@echo "\nDeleting redline libray..."
@@ -65,6 +61,6 @@ test: all
 	./test
 
 norm:
-	norminette $(SRC) includes/$(HEADER)
+	@norminette */*.c */*.h
 
 .PHONY: clean fclean re test norm

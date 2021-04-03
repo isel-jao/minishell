@@ -89,7 +89,7 @@ RM			=	/bin/rm -f
 RM_DIR		=	/bin/rm -rf
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INC_DIR)*.h
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all:
 	@mkdir -p $(OBJ_DIR)
@@ -114,3 +114,6 @@ fclean: clean
 eclean: clean fclean
 
 re: fclean all
+
+norm:
+	@norminette srcs/*/*.c includes/
