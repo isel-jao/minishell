@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 11:54:22 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/03 11:57:54 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:26:13 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ void				sig_int(int code);
 void				ft_prompt(int ret);
 void				las_cmd(t_ms *ms, char **args);
 void				sort_args(t_ms *ms);
+void				print_cd_error(char **args);
 t_env				*new_env(char *value);
 size_t				size_env(t_env *lst);
 t_token				*get_tokens(char *line);

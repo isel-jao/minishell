@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 10:11:25 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/03 10:15:53 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:32:41 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int		check(t_ms *ms, t_token *token)
 			ms->ret = 258;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->prev || !token->next ||\
-			is_types(token->prev, "TAIPE")))
+		if ((is_types(token, "PE") && (!token->prev ||\
+		is_types(token->prev, "TAIPE"))) || (is_types(token, "P") && \
+		!token->next))
 		{
 			ft_putstr_fd(SYNERR, STDERR);
 			ft_putstr_fd(token->str, STDERR);

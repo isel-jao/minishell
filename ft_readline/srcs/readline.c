@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:48:07 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 13:23:23 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:45:49 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*ft_readline(char *prompt, t_list *hist, int *ms_exit, int *ms_ret)
 {
 	struct termios	oldattr;
 	t_line			line;
+	int				i;
 
 	ft_bzero(&line, sizeof(t_line));
 	ft_putstr_fd(prompt, 1);
@@ -90,5 +91,8 @@ char	*ft_readline(char *prompt, t_list *hist, int *ms_exit, int *ms_ret)
 	input_loop(&line, ms_ret);
 	rest_tail(line);
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-	return (ft_strdup(line.cmd));
+	i = 0;
+	while (line.cmd[i] == ' ')
+		i++;
+	return (ft_strdup(&line.cmd[i]));
 }

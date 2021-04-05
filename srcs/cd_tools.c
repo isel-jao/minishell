@@ -6,7 +6,7 @@
 /*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:04:43 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/03 10:13:01 by isel-jao         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:45:33 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,23 @@ static int	ft_error(int option)
 	return (ERROR);
 }
 
-int			go_to_path(int option, t_env *env)
+static	int	ft_chdir(char *env_path, t_env *env)
 {
 	int		ret;
+
+	ret = chdir(env_path);
+	if (ret != 0)
+		print_cd_error(&env_path);
+	else
+	{
+		update_oldpwd(env);
+		update_pwd(env);
+	}
+	return (ret);
+}
+
+int			go_to_path(int option, t_env *env)
+{
 	char	*env_path;
 
 	env_path = NULL;
@@ -72,8 +86,5 @@ int			go_to_path(int option, t_env *env)
 			return (ft_error(option));
 		ft_putendl(env_path);
 	}
-	ret = chdir(env_path);
-	update_oldpwd(env);
-	update_pwd(env);
-	return (ret);
+	return (ft_chdir(env_path, env));
 }

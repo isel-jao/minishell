@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yqodsi <yqodsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isel-jao <isel-jao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 09:19:08 by isel-jao          #+#    #+#             */
-/*   Updated: 2021/04/02 18:16:45 by yqodsi           ###   ########.fr       */
+/*   Updated: 2021/04/05 10:25:53 by isel-jao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static	void	print_error(char **args)
+void			print_cd_error(char **args)
 {
 	ft_putstr_fd("cd: ", 2);
 	if (args[2])
@@ -37,7 +37,7 @@ int				ft_sub_cd(t_env *env, char **args)
 	{
 		ret = chdir(args[1]);
 		if (ret != 0)
-			print_error(args);
+			print_cd_error(args);
 		else
 		{
 			update_oldpwd(env);
